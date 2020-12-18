@@ -1,5 +1,7 @@
 class ClientesController < ApplicationController
   before_action :set_cliente, only: [:show, :edit, :update, :destroy]
+  before_action :cross_domain
+
 
   # GET /clientes
   # GET /clientes.json
@@ -70,5 +72,12 @@ class ClientesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def cliente_params
       params.require(:cliente).permit(:nome, :telefone, :email)
+    end
+
+    def cross_domain
+      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, HEAD, DELETE, PUT'
+      headers['Access-Control-Request-Method'] = '*'
+      headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, token'
     end
 end
